@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ResearchMate AI — Literature Review Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div>
+        <span class="tag">Academic AI Portfolio Project</span>
+        <h1>ResearchMate AI</h1>
+        <p>
+          Plan your research topic, organize literature papers, track methodology,
+          identify research gaps, and generate AI-style research recommendations
+          for thesis, journal, and PhD work.
+        </p>
+
+        <div class="hero-actions">
+          <button onclick="scrollToPlanner()">Generate Research Plan</button>
+          <button class="ghost" onclick="loadDemoData()">Load Demo Data</button>
+          <button class="ghost" onclick="exportCSV()">Export CSV</button>
+          <button class="ghost" onclick="exportJSON()">Export JSON</button>
+          <button class="danger" onclick="resetAllData()">Reset Data</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <span>Research Progress</span>
+        <h2 id="heroScore">0%</h2>
+        <p id="heroStatus">No papers added yet</p>
+        <div class="progress-bg">
+          <div id="heroProgress"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span>Total Papers</span>
+        <strong id="totalPapers">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Reviewed Papers</span>
+        <strong id="reviewedPapers">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>High Relevance</span>
+        <strong id="highRelevance">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Research Gaps</span>
+        <strong id="gapCount">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Avg Quality</span>
+        <strong id="avgQuality">0/10</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Method Types</span>
+        <strong id="methodCount">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Keywords</span>
+        <strong id="keywordCount">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Research Score</span>
+        <strong id="researchScore">0%</strong>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="card" id="plannerSection">
+        <h2>AI-Style Research Plan Generator</h2>
+
+        <label for="researchTopic">Research Topic</label>
+        <input id="researchTopic" type="text" placeholder="Example: AI-driven adaptive e-learning systems" />
+
+        <label for="researchField">Research Field</label>
+        <select id="researchField">
+          <option>Computer Science</option>
+          <option>Data Science</option>
+          <option>Artificial Intelligence</option>
+          <option>Education Technology</option>
+          <option>Cybersecurity</option>
+          <option>Healthcare Technology</option>
+          <option>Business Technology</option>
+          <option>Software Engineering</option>
+        </select>
+
+        <div class="mini-grid">
+          <div>
+            <label for="researchGoal">Research Goal</label>
+            <select id="researchGoal">
+              <option>Build a research proposal</option>
+              <option>Write literature review</option>
+              <option>Find research gap</option>
+              <option>Design methodology</option>
+              <option>Prepare journal article</option>
+              <option>Plan PhD direction</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="timeframe">Timeframe</label>
+            <select id="timeframe">
+              <option>2 weeks</option>
+              <option>1 month</option>
+              <option>3 months</option>
+              <option>6 months</option>
+              <option>1 year</option>
+            </select>
+          </div>
+        </div>
+
+        <button onclick="generateResearchPlan()">Generate Research Plan</button>
+        <button class="secondary" onclick="copyResearchPlan()">Copy Plan</button>
+
+        <div id="researchPlan" class="plan-box">
+          <h3>No research plan yet</h3>
+          <p>Enter your topic and generate an AI-style research plan.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Add Literature Paper</h2>
+
+        <label for="paperTitle">Paper Title</label>
+        <input id="paperTitle" type="text" placeholder="Example: Explainable AI in Adaptive Learning Systems" />
+
+        <div class="mini-grid">
+          <div>
+            <label for="authors">Author(s)</label>
+            <input id="authors" type="text" placeholder="Example: Smith et al." />
+          </div>
+
+          <div>
+            <label for="year">Year</label>
+            <input id="year" type="number" placeholder="Example: 2025" />
+          </div>
+        </div>
+
+        <div class="mini-grid">
+          <div>
+            <label for="sourceType">Source Type</label>
+            <select id="sourceType">
+              <option>Journal Article</option>
+              <option>Conference Paper</option>
+              <option>Book Chapter</option>
+              <option>Thesis</option>
+              <option>Preprint</option>
+              <option>Report</option>
+              <option>Website</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="methodology">Methodology</label>
+            <select id="methodology">
+              <option>Quantitative</option>
+              <option>Qualitative</option>
+              <option>Mixed Method</option>
+              <option>Systematic Review</option>
+              <option>Experiment</option>
+              <option>Survey</option>
+              <option>Case Study</option>
+              <option>Design Science</option>
+              <option>Machine Learning</option>
+              <option>Conceptual</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mini-grid">
+          <div>
+            <label for="relevance">Relevance Score</label>
+            <select id="relevance">
+              <option value="10">Very High - 10</option>
+              <option value="8">High - 8</option>
+              <option value="6">Medium - 6</option>
+              <option value="4">Low - 4</option>
+              <option value="2">Very Low - 2</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="quality">Quality Score</label>
+            <input id="quality" type="number" min="1" max="10" value="7" />
+          </div>
+        </div>
+
+        <label for="paperStatus">Reading Status</label>
+        <select id="paperStatus">
+          <option>To Read</option>
+          <option>Reading</option>
+          <option>Reviewed</option>
+          <option>Key Paper</option>
+        </select>
+
+        <label for="keywords">Keywords</label>
+        <input id="keywords" type="text" placeholder="Example: XAI, recommender system, e-learning, personalization" />
+
+        <label for="findings">Key Findings</label>
+        <textarea id="findings" placeholder="Summarize the main findings or contribution of this paper..."></textarea>
+
+        <label for="researchGap">Research Gap / Limitation</label>
+        <textarea id="researchGap" placeholder="What limitation, gap, or future work did the paper mention?"></textarea>
+
+        <label for="paperLink">Paper Link Optional</label>
+        <input id="paperLink" type="url" placeholder="Example: DOI, Google Scholar, journal URL" />
+
+        <button onclick="addPaper()">Add Paper</button>
+        <button class="dark" onclick="clearPaperForm()">Clear Form</button>
+      </div>
+    </section>
+
+    <section class="layout second">
+      <div class="card">
+        <h2>AI-Style Research Insights</h2>
+
+        <div class="insight-box">
+          <h3 id="insightTitle">No insight yet</h3>
+          <p id="insightText">Add papers to receive research direction insights.</p>
+        </div>
+
+        <h3>Methodology Breakdown</h3>
+        <div id="methodBreakdown">
+          <p class="empty-text">No methodology data yet.</p>
+        </div>
+
+        <h3>Reading Status Breakdown</h3>
+        <div id="statusBreakdown">
+          <p class="empty-text">No status data yet.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Research Gap & Keyword Map</h2>
+
+        <h3>Top Keywords</h3>
+        <div id="keywordCloud" class="keyword-cloud">
+          <p class="empty-text">No keywords yet.</p>
+        </div>
+
+        <h3>Research Gap Themes</h3>
+        <div id="gapThemes" class="gap-list">
+          <p class="empty-text">No research gaps recorded yet.</p>
+        </div>
+
+        <button onclick="printReport()">Print Research Report</button>
+      </div>
+    </section>
+
+    <section class="card history-card">
+      <div class="history-header">
+        <div>
+          <h2>Literature Review Matrix</h2>
+          <p>Search, filter, review, and manage your literature papers.</p>
+        </div>
+
+        <div class="filters">
+          <input id="searchInput" type="text" placeholder="Search title, author, keyword..." oninput="renderApp()" />
+
+          <select id="filterMethod" onchange="renderApp()">
+            <option>All Methodologies</option>
+          </select>
+
+          <select id="filterStatus" onchange="renderApp()">
+            <option>All Status</option>
+            <option>To Read</option>
+            <option>Reading</option>
+            <option>Reviewed</option>
+            <option>Key Paper</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="paperList" class="paper-grid">
+        <div class="empty-box wide">
+          <h3>No papers added yet</h3>
+          <p>Add your first paper or load demo data to start your literature review matrix.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
